@@ -1,4 +1,4 @@
-OPENAI_API_BASE: "https://api.openai.com/v1"
+OPENAI_API_BASE: "https://api.openai.com/v1/chat/completions"
 OPENAI_API_KEY: "sk-"  # Set the value to sk-xxx if you host the openai interface for open llm model
 OPENAI_API_MODEL: "gpt-4-vision-preview"  # The only OpenAI model by now that accepts visual input
 MAX_TOKENS: 300  # The max token limit for the response completion
