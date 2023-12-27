@@ -68,7 +68,7 @@ def traverse_tree(xml_path, elem_list, attrib, add_index=False):
                 center = (x1 + x2) // 2, (y1 + y2) // 2
                 elem_id = get_id_from_element(elem)
                 if parent_prefix:
-                    elem_id = parent_prefix + "_" + elem_id
+                    elem_id = f"{parent_prefix}_{elem_id}"
                 if add_index:
                     elem_id += f"_{elem.attrib['index']}"
                 close = False
