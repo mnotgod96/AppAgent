@@ -12,7 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script> -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.css"
+        data-noprefix />
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.css">
@@ -191,6 +196,8 @@
                         });
 
                         // if the line-numbers plugin is enabled, then there is no reason for this plugin to display the line numbers
+
+                        // TODO: fix line wrapping problem.
                         if (hasLineNumbers && Prism.plugins.lineNumbers) {
                             var startNode = Prism.plugins.lineNumbers.getLine(pre, start);
                             var endNode = Prism.plugins.lineNumbers.getLine(pre, end);
@@ -289,6 +296,7 @@
 
                 var id = hash.slice(0, hash.lastIndexOf('.'));
                 var pre = document.getElementById(id);
+                // if (pre.classList.contains("wrap_pre")){return}
 
                 if (!pre) {
                     return;
@@ -361,6 +369,10 @@
                 const loaded = pre_elem.getAttribute('data-src-status');
                 if (loaded == "loaded") {
                     applyHash();
+                    // pre_elem.classList.add("wrap_pre");
+                    // setTimeout(() => {pre_elem.classList.add("wrap_pre");}, 1000);
+
+                    // pre_elem.style.whiteSpace="pre-wrap !important";
                 } else {
                     setTimeout(conditionalApplyHash, 500)
                 }
@@ -410,7 +422,12 @@
                 pre_elem.setAttribute("data-src", code_path);
                 section_elem.appendChild(pre_elem)
                 Prism.highlightElement(pre_elem);
-                conditionalApplyHash();
+                if (window.location.hash != "") {
+                    conditionalApplyHash();
+                } else {
+                    // setTimeout(() => {pre_elem.classList.add("wrap_pre");}, 1000);
+                    // pre_elem.style.whiteSpace="pre-wrap !important";
+                }
                 // applyHash();
                 // Prism.highlightElement(pre_elem, () => {applyHash()});
                 // Prism.highlightElement(pre_elem).then(applyHash);
@@ -468,8 +485,20 @@
             /* white-space: pre-wrap; */
             /* Enable vertical scrolling if content exceeds viewport height */
         }
-        code {
-            white-space: pre-wrap !important;
+
+        .line-highlight {
+            background-color: rgba(228, 239, 12, 0.1) !important;
+        }
+
+        /* do this after jump */
+        /* .line-highlight {
+            background-color: rgba(0, 0, 0, 0) !important;
+            background-image: linear-gradient(to right, rgba(121, 96, 72, 0.1) 70%, rgba(121, 96, 72, 0)) !important;
+        } */
+
+        pre {
+            white-space: pre-line !important;
+            /* white-space: pre-wrap !important; */
         }
 
         .container {
@@ -528,7 +557,9 @@
     </style>
 </head>
 
-<body>
+<!-- <body> -->
+
+<body class="line-numbers">
     <header class="container" data-plugin-header="line-numbers">
         <p id="code-path" class="monospace-text">Code Preview</p>
     </header>
