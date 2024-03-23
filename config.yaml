@@ -17,3 +17,6 @@ DOC_REFINE: false  # Set this to true will make the agent refine existing docume
 MAX_ROUNDS: 20  # Set the round limit for the agent to complete the task
 DARK_MODE: false  # Set this to true if your app is in dark mode to enhance the element labeling
 MIN_DIST: 30  # The minimum distance between elements to prevent overlapping during the labeling process
+
+FIGMA_ACCESS_TOKEN: "" # Set the access token for the Figma API
+FIGMA_PROTOTYPE_PASSWORD: "" # (Optional) Set the password for the Figma prototype if the prototype is protected
