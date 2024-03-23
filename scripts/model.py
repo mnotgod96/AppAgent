@@ -9,14 +9,15 @@ import dashscope
 from utils import print_with_color, encode_image
 
 
+from typing import List, Tuple
+
 class BaseModel:
     def __init__(self):
         pass
 
     @abstractmethod
-    def get_model_response(self, prompt: str, images: List[str]) -> (bool, str):
+    def get_model_response(self, prompt: str, images: List[str]) -> Tuple[bool, str]:
         pass
-
 
 class OpenAIModel(BaseModel):
     def __init__(self, base_url: str, api_key: str, model: str, temperature: float, max_tokens: int):
@@ -27,7 +28,7 @@ class OpenAIModel(BaseModel):
         self.temperature = temperature
         self.max_tokens = max_tokens
 
-    def get_model_response(self, prompt: str, images: List[str]) -> (bool, str):
+    def get_model_response(self, prompt: str, images: List[str]) -> Tuple[bool, str]:
         content = [
             {
                 "type": "text",
@@ -76,7 +77,7 @@ class QwenModel(BaseModel):
         self.model = model
         dashscope.api_key = api_key
 
-    def get_model_response(self, prompt: str, images: List[str]) -> (bool, str):
+    def get_model_response(self, prompt: str, images: List[str]) -> Tuple[bool, str]:
         content = [{
             "text": prompt
         }]
@@ -98,20 +99,20 @@ class QwenModel(BaseModel):
             return False, response.message
 
 
-def parse_explore_rsp(rsp):
+def parse_explore_rsp(rsp, log_file=None):
     try:
         observation = re.findall(r"Observation: (.*?)$", rsp, re.MULTILINE)[0]
         think = re.findall(r"Thought: (.*?)$", rsp, re.MULTILINE)[0]
         act = re.findall(r"Action: (.*?)$", rsp, re.MULTILINE)[0]
         last_act = re.findall(r"Summary: (.*?)$", rsp, re.MULTILINE)[0]
-        print_with_color("Observation:", "yellow")
-        print_with_color(observation, "magenta")
-        print_with_color("Thought:", "yellow")
-        print_with_color(think, "magenta")
-        print_with_color("Action:", "yellow")
-        print_with_color(act, "magenta")
-        print_with_color("Summary:", "yellow")
-        print_with_color(last_act, "magenta")
+        print_with_color("Observation:", "yellow", log_file, heading_level=3)
+        print_with_color(observation, "magenta", log_file)
+        print_with_color("Thought:", "yellow", log_file, heading_level=3)
+        print_with_color(think, "magenta", log_file)
+        print_with_color("Action:", "yellow", log_file, heading_level=3)
+        print_with_color(act, "magenta", log_file)
+        print_with_color("Summary:", "yellow", log_file, heading_level=3)
+        print_with_color(last_act, "magenta", log_file)
         if "FINISH" in act:
             return ["FINISH"]
         act_name = act.split("(")[0]
@@ -187,14 +188,14 @@ def parse_grid_rsp(rsp):
         return ["ERROR"]
 
 
-def parse_reflect_rsp(rsp):
+def parse_reflect_rsp(rsp, log_file=None):
     try:
         decision = re.findall(r"Decision: (.*?)$", rsp, re.MULTILINE)[0]
         think = re.findall(r"Thought: (.*?)$", rsp, re.MULTILINE)[0]
-        print_with_color("Decision:", "yellow")
-        print_with_color(decision, "magenta")
-        print_with_color("Thought:", "yellow")
-        print_with_color(think, "magenta")
+        print_with_color("Decision:", "yellow", log_file, heading_level=3)
+        print_with_color(decision, "magenta", log_file)
+        print_with_color("Thought:", "yellow", log_file, heading_level=3)
+        print_with_color(think, "magenta", log_file)
         if decision == "INEFFECTIVE":
             return [decision, think]
         elif decision == "BACK" or decision == "CONTINUE" or decision == "SUCCESS":
