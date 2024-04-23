@@ -22,7 +22,7 @@
 
 ℹ️Should you encounter any issues⚠️ while using our project, please feel free to report them on [GitHub Issues](https://github.com/mnotgod96/AppAgent/issues) or reach out to [Dr. Chi Zhang](https://icoz69.github.io/) via email at dr.zhang.chi@outlook.com.
 
-ℹ️This project will be synchronously updated on the official [TencentQQGYLab](https://github.com/TencentQQGYLab/AppAgent) Github Page.
+ℹ️This project will be synchronously updated on the official [TencentQQGYLab](https://github.com/TencentQQGYLab/AppAgent) GitHub Page.
 
 ## 📝 Changelog
 - __[2024.2.8]__: Added `qwen-vl-max` (通义千问-VL) as an alternative multi-modal model. The model is currently free to use but has a relatively poorer performance compared with GPT-4V.
