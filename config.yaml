@@ -19,4 +19,3 @@ DARK_MODE: false  # Set this to true if your app is in dark mode to enhance the 
 MIN_DIST: 30  # The minimum distance between elements to prevent overlapping during the labeling process
 
 FIGMA_ACCESS_TOKEN: "" # Set the access token for the Figma API
-FIGMA_PROTOTYPE_PASSWORD: "" # (Optional) Set the password for the Figma prototype if the prototype is protected
