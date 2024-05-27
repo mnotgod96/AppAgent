@@ -5,3 +5,17 @@ opencv-python
 pyshine
 pyyaml
 requests
+langchain
+langchain-openai
+selenium
+webdriver_manager
+numpy
+Pillow
+customtkinter
+
+# Add the missing packages
+sounddevice
+matplotlib
+soundfile
+tensorflow
+openai
